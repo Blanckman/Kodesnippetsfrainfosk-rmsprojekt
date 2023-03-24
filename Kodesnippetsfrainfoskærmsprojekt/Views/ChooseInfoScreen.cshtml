@@ -1,0 +1,34 @@
+﻿@using InformationScreen.Web.Models;
+@using InformationScreen.Web.Models.ViewModels;
+@model ChooseInfoScreenViewModel
+@{
+    Layout = "_Layout";
+}
+
+<partial name="_NavigationMenu" />
+<br />
+<div class="container-sm">
+    <div>
+        <h3 class="text-center"><strong>Se infoskærm</strong></h3>
+        <div asp-validation-summary="All"></div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col" align="center">
+                    <div class="col-3">
+                         @foreach (Department d in Model.Departments) {
+                            <a asp-action="InformationScreen" class="btn" target=_blank
+                            style="color:#FFFFFF; background-color:#FF960E"
+                            asp-route-departmentId="@d.DepartmentId">
+                                @d.DepartmentName 
+                            </a>
+                            <br/>
+                            <br />
+                         }
+                    </div>
+                        <br />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,80 @@
+﻿@using InformationScreen.Web.Models;
+@using InformationScreen.Web.Models.ViewModels;
+@model ChooseInfoScreenViewModel
+
+@{
+    Layout = "_Layout";
+}
+<style>        
+            .breaking {
+                position:fixed;
+                left: 0;
+                bottom: 50px;
+                width: 100%;
+                color: white;
+                text-align: left;
+                font-size: 25px;
+            }
+            
+</style>
+<table class="table table-bordered table-striped table-sm container-sm">
+    <thead>
+        <tr style="color:#FFFFFF; background-color:#FF960E">
+                <th class="text-center">Emne</th>
+                <th class="text-center">V/Hvem</th>
+                <th class="text-center">Tidspunkt</th>
+                <th class="text-center">Lokale</th>
+                <th class="text-center">Status</th>
+            </tr>
+    </thead>
+        <tbody>
+            @foreach (Room k in Model.Rooms) {
+                if (Model != null) {
+                    foreach (Event e in Model.Events) {
+                        if (e.FromDate.Value.ToString("M") == DateTime.Now.ToString("M") && e.ToDate > DateTime.Now && e.RoomId == k.RoomId) {
+                            if (e.IsCanceled != true) {
+                                 <tr class="text-center">
+                                     <td>@e.Topic</td>
+                                     <td>@e.Host</td>
+                                     <td>@e.FromDate.Value.ToString("t") - @e.ToDate.Value.ToString("t")</td>
+                                     <td>@k.RoomName</td>
+                                     <td></td>
+                                 </tr>
+                            }else{
+                                <tr class="text-center">
+                                    <td class="text-danger">@e.Topic</td>
+                                <td class ="text-danger">@e.Host</td>
+                                    <td class="text-danger">@e.FromDate.Value.ToString("t") - @e.ToDate.Value.ToString("t")</td>
+                                    <td class="text-danger">@k.RoomName</td>
+                                    <td class="text-danger">Aflyst</td>
+                                </tr>
+                            }
+                        }
+                    }
+                }
+            }
+        </tbody>
+</table>
+@*Information relavant for the department*@
+    <br />
+    <div class="breaking">
+     @foreach (Information information in Model.Informations) {
+        @if(information.IsActive !=false) {
+            <marquee class="news-scroll navbar bg-black text-white" behavior="scroll" direction="left">
+                @foreach (Department d in Model.Departments) {
+                    if(d.DepartmentId == information.DepartmentId) {
+                            <th>@information.Info &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    }    
+                }
+            </marquee>
+        }
+    }
+    </div>
+    @*Reloads the page ever minute*@
+    <script>
+        setTimeout(function(){
+        window.location.reload(1);
+    },60000);
+    </script>
+
+    

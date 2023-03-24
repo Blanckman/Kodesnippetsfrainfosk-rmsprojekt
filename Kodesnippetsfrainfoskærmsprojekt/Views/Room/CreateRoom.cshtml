@@ -1,0 +1,36 @@
+﻿@using InformationScreen.Web.Models;
+@using InformationScreen.Web.Models.ViewModels;
+@model InformationScreen.Web.Models.ViewModels.RoomViewModel
+@{
+    Layout = "_Layout";
+}
+<partial name="_NavigationMenu"/>
+
+<div class="container-sm text-center align-items-center">
+    <h4><strong>Opret lokale</strong></h4>
+     <form asp-action="CreateRoom" method="post">
+            <div asp-validation-summary="All"></div>
+           <div class="form-group">
+               <div class="row">
+                   <div class="col" align="center">
+                       <div class="col-3">
+                         <select asp-for="Room.DepartmentId" class="form-control">
+                            <option value="">Vælg afdeling</option>
+                             @foreach (Department d in Model.Departments) {
+                             <option value=@d.DepartmentId>@d.DepartmentName</option>
+                             }
+                         </select>
+                    </div>
+                </div>
+            </div>
+            </div>
+        <div class="col" align="center">
+            <div class="col-3">
+                <label asp-for="Room.RoomName">lokale navn</label> <br />
+                <input asp-for="Room.RoomName" placeholder="f.eks. Playground"/>
+            </div>
+          </div> <br />
+        <button class="btn" style="color:#FFFFFF; background-color:#FF960E" type="submit">Opret</button>
+        <a class="btn" style="color:#FFFFFF; background-color:#FF960E" asp-controller="Home" asp-action="Index">Tilbage</a>
+    </form>
+</div>

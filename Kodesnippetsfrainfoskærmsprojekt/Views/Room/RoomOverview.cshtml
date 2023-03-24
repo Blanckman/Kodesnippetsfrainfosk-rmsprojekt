@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Room>
+@{
+    Layout = "_Layout";
+}
+<partial name="_NavigationMenu" />
+
+<div>
+    <br/>
+    <h3 class="text-center"><strong>Lokaleoversigt</strong></h3>
+    <br />
+    <table class="table table-striped-row table-bordered container-sm">
+        <thread>
+            <tr class="text-center text-white" style="background-color:#FF960E; opacity: 90;"><th>Lokale</th><th>Afdeling</th><th></th></tr>
+        </thread>
+        <tbody>
+            @foreach (Room r in Model ?? Enumerable.Empty<Room>()) {
+                <tr class="text-center">
+                    <form asp-action="DeleteRoom" method="post">
+                        <a asp-route-RoomId="@r.RoomId"></a>
+                    <td>@r.RoomName</td>
+                    <td>@r.Department.DepartmentName</td>
+                    <input type="hidden" name="RoomId" value="@r.RoomId" />
+                    <td>
+                    <button type="submit" class="btn btn-danger">Slet</button>
+                    <a asp-action="UpdateRoom" class="btn" style="color:#FFFFFF; background-color:#FF960E"
+                   asp-route-roomId="@r.RoomId">
+                   Rediger
+                    </a>
+                    <input type="hidden" name="DepartmentId" value="@r.DepartmentId" />
+                    </td>
+                    </form>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

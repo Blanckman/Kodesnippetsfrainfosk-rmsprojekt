@@ -1,0 +1,29 @@
+﻿@using InformationScreen.Web.Models;
+@model InformationScreen.Models.Room
+@{
+    Layout = "_Layout";
+}
+<partial name="_NavigationMenu" />
+<br />
+<br />
+<br />
+<div class="container-sm text-center align-items-center">
+    <h3>Rediger rum</h3>
+<div class="col" align="center">
+    <div class="col-3">
+        <form asp-action="UpdateRoom" method="post">
+            <input type="hidden" asp-for="RoomId" />
+            <div class="form-group">
+                <label asp-for="RoomName">Lokale navn</label>
+
+                <input asp-for="RoomName" class="form-control" />
+            </div>
+            <div class="text-center">
+                <button class="btn" type="submit" style="color:#FFFFFF; background-color:#FF960E">Gem</button>
+                <a asp-action="RoomOverview" class="btn" style="color:#FFFFFF; background-color:#FF960E">Afbryd</a>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
